@@ -27,4 +27,4 @@ $ docker run -p 80:80 -it hls_recorder:1.0
 ~~~
 2. Open the browser and enter the link: http://127.0.0.1/record?length=2
 
-NOTE: The _"length"_ parameter specifies the maximum length of the video (in seconds).
+NOTE: _"length"_ parameter specifies the maximum length of the video (in seconds).
