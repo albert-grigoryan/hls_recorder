@@ -8,4 +8,5 @@ WORKDIR /src
 COPY CMakeLists.txt src ./
 RUN mkdir build && cd build && cmake .. && make
 EXPOSE 80
-RUN export LD_LIBRARY_PATH=/usr/local/lib && ./
+ENV LD_LIBRARY_PATH=/usr/local/lib
+CMD build/hls_recorder
