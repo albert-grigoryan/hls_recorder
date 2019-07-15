@@ -1,4 +1,4 @@
-# HLS recorder
+# HLS Recorder
 
 ## Overview
 
