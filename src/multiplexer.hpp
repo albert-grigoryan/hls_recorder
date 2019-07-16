@@ -13,18 +13,27 @@ class hls_recorder::multiplexer: public served::multiplexer
 private:
 
     /**
+     * @brief Check authorization (access token)
+     * @param req - request
+     * @return - true if authorization succeed, false otherwise
+     */ 
+    static bool check_authorization(const served::request& req) noexcept;
+
+    /**
      * @brief Function to handle "/frames" requests
      * @param res - response
      * @param req - request
      */
-    static void frames_request(served::response & res, const served::request & req);
+    static void frames_request(served::response& res,
+                               const served::request& req) noexcept;
 
     /**
      * @brief Function to handle "/record" requests
      * @param res - response
      * @param req - request
      */
-    static void record_request(served::response & res, const served::request & req);
+    static void record_request(served::response& res,
+                               const served::request& req) noexcept;
 
 public:
     /// @brief Only available constructor

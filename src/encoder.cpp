@@ -3,23 +3,31 @@
 #include <opencv2/opencv.hpp>
 
 #include<iostream>
+#include<sstream>
 #include<vector>
+#include<iomanip>
 
 hls_recorder::encoder::file_names
 hls_recorder::encoder::encode_frames_to_images(size_t c)
 {
     file_names files = {};
-    std::string name("frame_00001.png");
+    std::string prefix("frame_");
+    std::string postfix(".jpg");
     cv::VideoCapture cap(m_url);
     if (!cap.isOpened()) {
 	std::cerr << "Failed to capture url: " << m_url << std::endl;
 	return files;
     }
-    cv::FileStorage file(name, cv::FileStorage::WRITE);
     cv::Mat frame;
-    cap >> frame;
-    cv::imwrite(name, frame); 
-    files.push_back(name);
+    std::ostringstream s; 
+    for (int i = 1; i <= c; ++i) {
+        cap >> frame;
+        s.str("");
+        s << prefix << std::setfill('0') << std::setw(4) << i << postfix; 
+        cv::FileStorage file(s.str(), cv::FileStorage::WRITE);
+        cv::imwrite(s.str(), frame); 
+        files.push_back(s.str());
+    }
     cap.release();
     return files;
 }
