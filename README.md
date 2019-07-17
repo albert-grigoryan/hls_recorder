@@ -4,6 +4,17 @@
 
 HTTP server recording _HTTP Live Video Streames_ to _video/image_ files.
 
+## Features
+1. Record HLS stream for 2 seconds - /record?length=2 (NOTE: do not forget to pass the access token in the _HTTP Authorization header_, by default is is equal to _"SAskXxSzYuS2nnyvsNQBxKDG25FSyNs2"_.). E.g.: 
+~~~
+$ curl -H "Authorization: SAskXxSzYuS2nnyvsNQBxKDG25FSyNs2" http://127.0.0.1:81/record?length=2
+Captured Record: 64fb01af-214f-499d-bdab-abcf33fdc7d9.avi
+~~~
+2. Download the record vide file - /record/<file-name>. E.g.:
+~~~
+curl -H "Authorization: SAskXxSzYuS2nnyvsNQBxKDG25FSyNs2" http://127.0.0.1:81/record/64fb01af-214f-499d-bdab-abcf33fdc7d9.avi > test.avi
+~~~
+
 ## Installation
 1. Clone to your local machine:
 ~~~
