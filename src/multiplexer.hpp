@@ -11,6 +11,10 @@ namespace hls_recorder {
 class hls_recorder::multiplexer: public served::multiplexer
 {
 private:
+    static const std::string m_hls_url;      // for testing purposes
+    static const std::string m_access_token; // for testing purposes
+
+private:
 
     /**
      * @brief Check authorization (access token)
@@ -18,6 +22,22 @@ private:
      * @return - true if authorization succeed, false otherwise
      */ 
     static bool check_authorization(const served::request& req) noexcept;
+
+    /**
+     * @brief Function to handle record file requests
+     * @param res - response
+     * @param req - request
+     */
+    static void record_file_request(served::response& res,
+                                    const served::request& req) noexcept;
+
+    /**
+     * @brief Function to handle frames file requests
+     * @param res - response
+     * @param req - request
+     */
+    static void frames_file_request(served::response& res,
+                                    const served::request& req) noexcept;
 
     /**
      * @brief Function to handle "/frames" requests

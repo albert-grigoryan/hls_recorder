@@ -13,19 +13,21 @@ class hls_recorder::encoder
 public:
     // @brief Type declarations.
     using file_names = std::vector<std::string>;
-
+    
 public:
     /**
      * @brief Encode frames to images.
      * @param c - max frames count
      */
-    file_names encode_frames_to_images(size_t c);
+    file_names encode_frames_to_images(size_t c) const noexcept;
 
     /**
      * @brief Encode frames to video.
      * @param l - max video length (in seconds).
      */
-    std::string encode_frames_to_video(size_t l);
+    std::string encode_frames_to_video(size_t l) const noexcept;
+
+    static std::string get_tmp_path() noexcept;
 
     /// @brief Only available constructor
     encoder(std::string& url) noexcept;
@@ -41,6 +43,7 @@ public:
 
 private:
     const std::string m_url;
+    static const std::string m_tmp_path;
 };
 
 #endif // HLS_RECORDER_ENCODER_HPP
