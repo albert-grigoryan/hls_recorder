@@ -9,8 +9,10 @@
 #include<vector>
 
 /// @bref Predefined test configuration
-const std::string hls_recorder::multiplexer::m_hls_url="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8";
-const std::string hls_recorder::multiplexer::m_access_token="SAskXxSzYuS2nnyvsNQBxKDG25FSyNs2";
+const std::string hls_recorder::multiplexer::m_hls_url = 
+    "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8";
+const std::string hls_recorder::multiplexer::m_access_token = 
+    "SAskXxSzYuS2nnyvsNQBxKDG25FSyNs2";
 
 bool hls_recorder::multiplexer::
 check_authorization(const served::request& req) noexcept
@@ -30,8 +32,6 @@ record_file_request(served::response& res, const served::request& req) noexcept
     std::ifstream ifs(file);
     res.set_body(std::string((std::istreambuf_iterator<char>(ifs)),
 			    (std::istreambuf_iterator<char>())));
-//    res.set_header("content-type", "application/zip");
-    return;
 }
 
 void hls_recorder::multiplexer::
@@ -46,8 +46,6 @@ frames_file_request(served::response& res, const served::request& req) noexcept
     std::ifstream ifs(file);
     res.set_body(std::string((std::istreambuf_iterator<char>(ifs)),
 			    (std::istreambuf_iterator<char>())));
-//    res.set_header("content-type", "application/zip");
-    return;
 }
 
 void hls_recorder::multiplexer::
@@ -101,12 +99,6 @@ record_request(served::response& res, const served::request& req) noexcept
     encoder e(url);
     std::string file_name = e.encode_frames_to_video(length);
     res << "Captured Record: " << file_name;
-//    std::ifstream ifs(file_name);
-//    res.set_body(std::string(
-//	    (std::istreambuf_iterator<char>(ifs)),
-//	    (std::istreambuf_iterator<char>())
-//	    ));
-//    res.set_header("content-type", "video/x-msvideo");
 }
 
 hls_recorder::multiplexer::

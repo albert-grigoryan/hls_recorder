@@ -21,15 +21,20 @@ hls_recorder::encoder::encode_frames_to_images(size_t c) const noexcept
 	std::cerr << "Failed to capture url: " << m_url << std::endl;
 	return files;
     }
-    cv::Mat frame;
+    int fw = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+    int fh = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
     std::ostringstream s; 
-    for (int i = 1; i <= c; ++i) {
+    cv::Mat frame(fh, fw, CV_8UC4);
+    for(int i = 0; i < c; ++i) { 
         cap >> frame;
+        cap.retrieve(frame);
+        if( frame.empty()) {
+            break;
+        }
         s.str("");
         s << prefix << std::setfill('0') << std::setw(4) << i << postfix; 
-        cv::FileStorage file(m_tmp_path + s.str(), cv::FileStorage::WRITE);
-        cv::imwrite(m_tmp_path + s.str(), frame); 
         files.push_back(s.str());
+        cv::imwrite((m_tmp_path + s.str()).c_str(), frame);
     }
     cap.release();
     return files;
@@ -65,7 +70,7 @@ encode_frames_to_video(size_t l) const noexcept
     }
     cap.release();
     video.release();
-    return f;
+    return file;
 }
 
 std::string
