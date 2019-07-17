@@ -2,7 +2,16 @@
 
 ## Overview
 
-HTTP server recording _HTTP Live Video Streames_ to _video/image_ files.
+HTTP server recording _HTTP Live Video Streames_ to _video/image_ files. Build with CMake and packeged with Docker.
+
+Libraries Used:
+- Boost
+- OpenCV
+- Served
+
+Tools used:
+- CMake 
+- Docker
 
 ## Features
 1. Record HLS stream - **/record?length=n** (NOTE: do not forget to pass the access token in the _HTTP Authorization header_, by default is is equal to _"SAskXxSzYuS2nnyvsNQBxKDG25FSyNs2"_.). E.g. for 2 seconds: 
