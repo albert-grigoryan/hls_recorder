@@ -2,7 +2,7 @@
 
 ## Overview
 
-HTTP server recording _HTTP Live Video Streames_ to _video/image_ files. Build with CMake and packeged with Docker.
+HTTP server recording _HTTP Live Video Streams_ to _video/image_ files. Build with CMake and packeged with Docker.
 
 Libraries Used:
 - Boost
