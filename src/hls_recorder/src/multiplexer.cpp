@@ -1,5 +1,6 @@
-#include "multiplexer.hpp"
 #include "encoder.hpp"
+#include "messages.hpp"
+#include "multiplexer.hpp"
 
 #include <opencv2/opencv.hpp>
 
@@ -25,7 +26,7 @@ record_file_request(served::response& res, const served::request& req) noexcept
 {
     if (! check_authorization(req)) {
         res.set_status(403);
-        res << "Access Denied.";
+        res << messages::ACSD;
         return;
     }
     std::string file = encoder::get_tmp_path() + req.params["file_name"];
@@ -39,7 +40,7 @@ frames_file_request(served::response& res, const served::request& req) noexcept
 {
     if (! check_authorization(req)) {
         res.set_status(403);
-        res << "Access Denied.";
+        res << messages::ACSD;
         return;
     }
     std::string file = encoder::get_tmp_path() + req.params["file_name"];
@@ -53,26 +54,26 @@ frames_request(served::response& res, const served::request& req) noexcept
 {
     if (! check_authorization(req)) {
         res.set_status(403);
-        res << "Access Denied.";
+        res << messages::ACSD;
         return;
     }
-    size_t count = 5;           // capture 5 frames by default.
+    size_t count = 5;
     const std::string& s = req.query.get("count");
     if (! s.empty()) {
-	try { count = std::stoi(s); }
-	catch (...) {
-	    std::cerr << "Failed to convert '" << s
-		      << "' to int." << std::endl;
-	    res << "ERROR: Failed to convert count=" << s << "to int.";
-	    return;
-	}
+        try { 
+            count = std::stoi(s);
+        } catch (...) {
+            std::cerr << messages::INAR << std::endl;
+            res << messages::INAR;
+            return;
+        }
     }
     std::string url = m_hls_url;
     encoder e(url);
     encoder::file_names f = e.encode_frames_to_images(count);
     res << "Captured Frames: ";
     for (const auto& i : f) {
-	res << i << " ";
+	    res << i << " ";
     }
 }
 
@@ -81,10 +82,10 @@ record_request(served::response& res, const served::request& req) noexcept
 {
     if (! check_authorization(req)) {
         res.set_status(403);
-        res << "Access Denied.";
+        res << messages::ACSD;
         return;
     }
-    size_t length = 60; // record 1 minute by default.
+    size_t length = 60;
     const std::string& s = req.query.get("length");
     if (! s.empty()) {
 	try { length = std::stoi(s); }
